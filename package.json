@@ -6,7 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "docker:up": "docker compose up --build",
+    "docker:down": "docker compose down",
+    "docker:logs": "docker compose logs -f",
+    "docker:db:up": "docker compose -f docker-compose.yml -f docker-compose.local-db.yml up -d db",
+    "docker:db:down": "docker compose -f docker-compose.yml -f docker-compose.local-db.yml stop db"
   },
   "dependencies": {
     "@prisma/client": "^6",

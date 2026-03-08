@@ -1,0 +1,49 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: expense-tracker-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-expense_user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-expense_pass}
+      POSTGRES_DB: ${POSTGRES_DB:-expense_tracker}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-expense_user} -d ${POSTGRES_DB:-expense_tracker}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - expense_intranet
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: expense-tracker-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file:
+      - .env.docker
+    environment:
+      NODE_ENV: development
+    command: sh -c "pnpm install --frozen-lockfile && pnpm prisma db push && pnpm dev -H 0.0.0.0 -p 3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - app_node_modules:/app/node_modules
+    networks:
+      - expense_intranet
+
+networks:
+  expense_intranet:
+    name: expense_tracker_intranet
+    driver: bridge
+
+volumes:
+  postgres_data:
+  app_node_modules:
