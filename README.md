@@ -44,7 +44,7 @@ cp .env.example .env
 ## Variables de Entorno
 
 ```env
-DATABASE_URL="postgresql://usuario:password@localhost:5432/expense_tracker"
+DATABASE_URL="postgresql://postgres:postgres@localhost:5448/expense_tracker"
 OPENAI_API_KEY="tu-api-key"
 CLOUDINARY_CLOUD_NAME="tu-cloud-name"
 CLOUDINARY_API_KEY="tu-api-key"
@@ -53,7 +53,12 @@ CLOUDINARY_API_SECRET="tu-api-secret"
 
 ## Base de Datos
 
+El proyecto incluye un `docker-compose.yml` con PostgreSQL 16.
+
 ```bash
+# Levantar la base de datos
+docker compose up -d
+
 # Sincronizar schema con la base de datos
 npx prisma db push
 
@@ -61,9 +66,25 @@ npx prisma db push
 npx prisma db seed
 ```
 
+La base de datos corre en el puerto `5448` (mapeado desde el 5432 del contenedor).
+
+| Variable       | Valor por defecto  |
+|----------------|--------------------|
+| Usuario        | `postgres`         |
+| Password       | `postgres`         |
+| Base de datos  | `expense_tracker`  |
+| Puerto         | `5448`             |
+
 ## Desarrollo
 
 ```bash
+# 1. Levantar la base de datos
+docker compose up -d
+
+# 2. Instalar dependencias
+pnpm install
+
+# 3. Iniciar el servidor
 pnpm dev
 ```
 

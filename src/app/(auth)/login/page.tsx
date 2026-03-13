@@ -1,81 +1,60 @@
-"use client";
-
-import { useState } from "react";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
+import LoginForm from "../../../components/login-form";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-  const router = useRouter();
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
-    setLoading(true);
-
-    try {
-      const result = await signIn("credentials", {
-        email,
-        password,
-        redirect: false,
-      });
-
-      if (result?.error) {
-        setError("Credenciales invalidas");
-      } else {
-        router.push("/dashboard");
-      }
-    } catch {
-      setError("Error al iniciar sesion");
-    } finally {
-      setLoading(false);
-    }
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
-      <div className="w-full max-w-md bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8">
-        <h1 className="text-2xl font-bold text-center mb-6">Iniciar Sesion</h1>
-        {error && <div className="bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 p-3 rounded-lg mb-4 text-sm">{error}</div>}
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-1">Email</label>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-2 border dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white dark:bg-gray-700 dark:text-gray-100"
-              required
-            />
+    <div className="min-h-screen flex">
+      {/* Left branded panel */}
+      <div className="hidden lg:flex lg:w-5/12 bg-slate-950 flex-col justify-between p-12 relative overflow-hidden">
+        {/* Receipt perforation edge — the signature element */}
+        <div className="absolute right-0 top-0 bottom-0 w-6 flex flex-col items-center justify-around py-6">
+          {Array.from({ length: 20 }).map((_, i) => (
+            <div key={i} className="w-2.5 h-2.5 rounded-full bg-slate-800" />
+          ))}
+        </div>
+
+        {/* Decorative scan line */}
+        <div className="absolute top-0 left-0 right-6 h-px bg-linear-to-r from-transparent via-emerald-500/30 to-transparent" />
+
+        <div>
+          {/* Logo */}
+          <div className="flex items-center gap-3 mb-14">
+            <div className="w-9 h-9 bg-emerald-500 rounded-lg flex items-center justify-center shrink-0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16l3-2 3 2 3-2 3 2V8z" />
+                <line x1="9" y1="11" x2="15" y2="11" />
+                <line x1="9" y1="15" x2="13" y2="15" />
+              </svg>
+            </div>
+            <span className="text-white font-semibold text-base tracking-tight">Expense Tracker</span>
           </div>
-          <div>
-            <label className="block text-sm font-medium mb-1">Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-2 border dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none bg-white dark:bg-gray-700 dark:text-gray-100"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full py-2 bg-indigo-600 text-white rounded-lg font-semibold hover:bg-indigo-700 disabled:opacity-50 transition"
-          >
-            {loading ? "Ingresando..." : "Ingresar"}
-          </button>
-        </form>
-        <p className="text-center text-sm mt-4 text-gray-600 dark:text-gray-400">
-          No tienes cuenta?{" "}
-          <Link href="/register" className="text-indigo-600 dark:text-indigo-400 font-medium hover:underline">
-            Registrate
-          </Link>
-        </p>
+
+          <h2 className="text-[2.25rem] font-bold text-white leading-[1.15] tracking-tight mb-5">
+            Cada gasto,<br />
+            capturado al instante
+          </h2>
+          <p className="text-slate-400 text-base leading-relaxed max-w-xs">
+            Escanea recibos con IA, categoriza automáticamente y mantén tus finanzas bajo control total.
+          </p>
+        </div>
+
+        {/* Feature list */}
+        <div className="space-y-3.5 pr-8">
+          {[
+            "OCR impulsado por inteligencia artificial",
+            "Categorías detectadas automáticamente",
+            "Historial y reportes en tiempo real",
+          ].map((feature) => (
+            <div key={feature} className="flex items-start gap-3">
+              <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+              <span className="text-slate-400 text-sm leading-snug">{feature}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Right form panel */}
+      <div className="flex-1 flex items-center justify-center px-6 py-16 bg-white dark:bg-slate-900">
+        <LoginForm />
       </div>
     </div>
   );
