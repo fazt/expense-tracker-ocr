@@ -25,10 +25,6 @@ export default function BudgetsPage() {
   const [form, setForm] = useState({ amount: "", categoryId: "" });
   const [stats, setStats] = useState<Record<string, number>>({});
 
-  useEffect(() => {
-    loadData();
-  }, []);
-
   function loadData() {
     fetch("/api/categories").then((r) => r.json()).then(setCategories);
     fetch(`/api/budgets?month=${month}&year=${year}`).then((r) => r.json()).then(setBudgets);
@@ -40,6 +36,9 @@ export default function BudgetsPage() {
         setStats(map);
       });
   }
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => { loadData(); }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
