@@ -328,7 +328,7 @@ export default function Home() {
         </div>
 
         {/* ── CTA ─────────────────────────────────────────────── */}
-        <section className="py-24">
+        <section className="py-16">
           <div className="max-w-2xl mx-auto px-6 text-center space-y-8">
             <div className="space-y-4">
               <h2 className="text-3xl sm:text-4xl font-bold leading-tight">
