@@ -1,0 +1,1543 @@
+[
+  {
+    "id": "TC001",
+    "title": "Register a new user successfully and reach the dashboard",
+    "description": "Verifies a new user can register with valid name, email, and password and is redirected to the dashboard.",
+    "category": "User Registration",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Crear cuenta\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Test User\" into the name input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"testsprite.user+reg1@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"securepw\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dashboard\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC002",
+    "title": "Registration validation: missing name prevents account creation",
+    "description": "Verifies the registration form blocks submission and shows a visible validation/error state when name is empty.",
+    "category": "User Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"testsprite.user+noname@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"securepw\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/register\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"name\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC003",
+    "title": "Registration validation: missing email prevents account creation",
+    "description": "Verifies the registration form blocks submission and shows a visible validation/error state when email is empty.",
+    "category": "User Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"No Email User\" into the name input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"securepw\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/register\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC004",
+    "title": "Registration validation: password shorter than 6 characters is rejected",
+    "description": "Verifies the registration form blocks submission when password is below the minimum length and user stays on /register.",
+    "category": "User Registration",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Short Password\" into the name input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"testsprite.user+shortpw@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"12345\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/register\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"6\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC005",
+    "title": "Registration validation: invalid email format is rejected",
+    "description": "Verifies the registration form blocks submission when email format is invalid and displays a visible error/validation state.",
+    "category": "User Registration",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Bad Email\" into the name input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"not-an-email\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"securepw\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/register\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"email\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC006",
+    "title": "Double-submit protection: clicking Crear cuenta repeatedly does not create duplicate visible state",
+    "description": "Verifies that rapid repeated submit does not result in an inconsistent UI and ends on a single expected outcome page.",
+    "category": "User Registration",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /register"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"Rapid Submit\" into the name input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"testsprite.user+rapid@example.com\" into the email input field"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"securepw\" into the password input field"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "action",
+        "description": "Click \"Crear cuenta\" button to submit"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Dashboard\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC007",
+    "title": "Dashboard shows current month summary and default analytics view",
+    "description": "Verifies an authenticated user can load the dashboard and see a visible current-month total and chart content.",
+    "category": "Dashboard Analytics",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Total\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"analytics chart\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC008",
+    "title": "Switch between analytics tabs (Diario, Semanal, Categorias, Transacciones)",
+    "description": "Verifies each analytics tab can be opened and shows corresponding visible content.",
+    "category": "Dashboard Analytics",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Diario\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Diario\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Semanal\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Semanal\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC009",
+    "title": "Open Categorias tab and confirm category analytics are displayed",
+    "description": "Verifies the Categorias tab renders visible category-level analytics content.",
+    "category": "Dashboard Analytics",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Categorias\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Categorias\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"category breakdown chart\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC010",
+    "title": "Open Transacciones tab and confirm recent transactions section is visible",
+    "description": "Verifies the Transacciones tab can be opened and shows a visible transactions view.",
+    "category": "Dashboard Analytics",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Transacciones\" tab"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Transacciones\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"transactions list\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC011",
+    "title": "View previous month analytics using left arrow navigation",
+    "description": "Verifies month navigation updates the visible month context and refreshes summary/chart display.",
+    "category": "Dashboard Analytics",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Sign in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"current month label\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the month left arrow button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"previous month label\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"analytics chart\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC012",
+    "title": "Create a new expense with valid manual inputs",
+    "description": "Verifies a user can create a new expense by filling all required fields and sees it appear in the expenses list.",
+    "category": "Expense Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/expenses\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC013",
+    "title": "Create expense form fields accept valid values and submission adds row",
+    "description": "Verifies that completing the create expense form with valid values successfully creates an expense and shows it in the table.",
+    "category": "Expense Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Café de prueba\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"4.50\" into the amount field"
+      }
+    ]
+  },
+  {
+    "id": "TC014",
+    "title": "Successful create shows the expense in the list with correct description",
+    "description": "Verifies the newly created expense is visible in the expenses table after submitting the form.",
+    "category": "Expense Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Comida - caso E2E\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"12.34\" into the amount field"
+      }
+    ]
+  },
+  {
+    "id": "TC015",
+    "title": "Create expense validation: non-numeric amount shows error and stays on form",
+    "description": "Verifies entering a non-numeric amount prevents submission and shows a visible validation message.",
+    "category": "Expense Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Monto inválido\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"abc\" into the amount field"
+      }
+    ]
+  },
+  {
+    "id": "TC016",
+    "title": "Create expense validation: empty amount shows error and stays on form",
+    "description": "Verifies leaving the amount blank prevents submission and the create form remains visible with an error.",
+    "category": "Expense Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Monto vacío\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Submit\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"amount\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC017",
+    "title": "AI categorization suggests a category and user accepts it before creating expense",
+    "description": "Verifies the AI categorize flow suggests a category, user accepts it, and the expense is created using that category.",
+    "category": "Expense Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Taxi aeropuerto\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"AI categorize\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC018",
+    "title": "Accept AI suggested category and submit creates expense with that category visible",
+    "description": "Verifies that after accepting an AI-suggested category and submitting, the expense appears in the list with the category shown.",
+    "category": "Expense Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nuevo Gasto\" button"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Cena con amigos\" into the description field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"AI categorize\" button"
+      }
+    ]
+  },
+  {
+    "id": "TC019",
+    "title": "Filter expenses by category using dropdown",
+    "description": "Verifies selecting a category filter updates the visible expenses list to match the chosen category.",
+    "category": "Expense Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Expenses\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/expenses\""
+      },
+      {
+        "type": "action",
+        "description": "Select a category from the category filter dropdown"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the expenses table is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"No expenses\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC020",
+    "title": "Prevent processing when no file is uploaded",
+    "description": "Verifies clicking the process button without an uploaded image shows a visible prompt or error and does not proceed to extracted form.",
+    "category": "Receipt OCR Scanner",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on the \"Scan\" or \"Receipt Scanner\" navigation item to go to the scanner page"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Escanear Recibo\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"upload\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"Extracted expense form\" is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC021",
+    "title": "View budgets page shows category budgets and progress bars",
+    "description": "Verifies the budgets page loads for an authenticated user and displays budget amounts with progress indicators.",
+    "category": "Budget Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/budgets\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Budgets\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC022",
+    "title": "Edit a category budget and save updates the displayed amount",
+    "description": "Verifies a user can edit a category budget and see the updated budget amount reflected in the list.",
+    "category": "Budget Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Edit\" button for a category budget"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"500\" into the budget amount field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"500\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC023",
+    "title": "Saving an edited budget updates the progress bar state",
+    "description": "Verifies that after saving a new budget amount, the budget usage progress indicator is shown for that category.",
+    "category": "Budget Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Edit\" button for a category budget"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"250\" into the budget amount field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"progress bar\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC024",
+    "title": "Invalid negative budget amount shows validation error and does not save",
+    "description": "Verifies the app blocks negative budget values and displays a visible validation message.",
+    "category": "Budget Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Edit\" button for a category budget"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"-10\" into the budget amount field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Invalid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC025",
+    "title": "Non-numeric budget amount shows validation error and does not save",
+    "description": "Verifies the app blocks non-numeric input for budget amount and prevents saving.",
+    "category": "Budget Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Edit\" button for a category budget"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"abc\" into the budget amount field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"error\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC026",
+    "title": "Empty budget amount shows required validation and does not save",
+    "description": "Verifies clearing the budget amount triggers a required-field validation message when saving.",
+    "category": "Budget Management",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Edit\" button for a category budget"
+      },
+      {
+        "type": "action",
+        "description": "Fill \"\" into the budget amount field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC027",
+    "title": "Budget overspend warning indicator appears when usage crosses alert threshold (if present)",
+    "description": "Verifies that an alert indicator is shown when the UI reports spending exceeds 80% of a category budget, if such a category exists in the test account.",
+    "category": "Budget Management",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Budgets\" in the dashboard navigation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/budgets\""
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"alert indicator\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC028",
+    "title": "Create a new category with icon and color",
+    "description": "Verifies an authenticated user can create a new expense category and see it in the category list.",
+    "category": "Category Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Categories\" in the dashboard navigation menu"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/categories\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nueva Categoría\" button to open the create form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Nueva Categoría\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Type \"Groceries E2E\" into the category name input field"
+      },
+      {
+        "type": "action",
+        "description": "Select an icon option from the icon selector"
+      },
+      {
+        "type": "action",
+        "description": "Select a color option from the color selector"
+      },
+      {
+        "type": "action",
+        "description": "Click the submit button to create the category"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Groceries E2E\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC029",
+    "title": "Create category validation: empty name is rejected",
+    "description": "Verifies the create category form blocks submission when the category name is empty and shows a visible validation message.",
+    "category": "Category Management",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Login\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard\""
+      },
+      {
+        "type": "action",
+        "description": "Click on \"Categories\" in the dashboard navigation menu"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify URL contains \"/dashboard/categories\""
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Nueva Categoría\" button to open the create form"
+      },
+      {
+        "type": "action",
+        "description": "Click the submit button to create the category"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"required\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify element \"category name input field\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC030",
+    "title": "View Users Admin Panel list after login",
+    "description": "Verifies an authenticated user can open the Users Admin Panel and see a list of users with key fields displayed.",
+    "category": "Users Admin Panel",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Users\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify at least one user entry is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Expense\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC031",
+    "title": "Users list shows name, email, and expense count columns/labels",
+    "description": "Verifies the Users Admin Panel presents the expected user attributes (name, email, expense count) in the UI.",
+    "category": "Users Admin Panel",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Name\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Email\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Expense\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC032",
+    "title": "Open a user entry to edit and see Save control",
+    "description": "Verifies a user entry can be opened for editing and that an edit form (or editable fields) and Save option are visible.",
+    "category": "Users Admin Panel",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first user entry in the list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Save\" is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an email field is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC033",
+    "title": "Cancel editing a user without saving changes",
+    "description": "Verifies a user edit can be dismissed/cancelled and no update is applied when Save is not used.",
+    "category": "Users Admin Panel",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first user entry in the list"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Cancel\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user edit form is not visible"
+      }
+    ]
+  },
+  {
+    "id": "TC034",
+    "title": "Attempt to save user edit with invalid email format shows validation error",
+    "description": "Verifies editing a user email to an invalid format is blocked and an error message is shown.",
+    "category": "Users Admin Panel",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "action",
+        "description": "Click on the first user entry in the list"
+      },
+      {
+        "type": "action",
+        "description": "Type \"not-an-email\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Save\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Invalid\" is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC035",
+    "title": "Delete a user and cancel at confirmation keeps user in list",
+    "description": "Verifies the delete flow can be initiated but cancelled, and the user remains visible in the list.",
+    "category": "Users Admin Panel",
+    "priority": "Medium",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Delete\" button for the first user entry"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify text \"Confirm\" is visible"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Cancel\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the first user entry is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC036",
+    "title": "Delete a user and confirm shows either removal or delete failure message",
+    "description": "Verifies confirming delete results in a visible success outcome (user removed) or a visible failure message while the user remains listed.",
+    "category": "Users Admin Panel",
+    "priority": "High",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Delete\" button for the first user entry"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Confirm\" button"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify either a delete success message is visible or a delete failure message is visible"
+      }
+    ]
+  },
+  {
+    "id": "TC037",
+    "title": "Users Admin Panel handles empty state gracefully",
+    "description": "Verifies the Users Admin Panel displays a clear message when no users are available to show.",
+    "category": "Users Admin Panel",
+    "priority": "Low",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_USER}}\" into the email field"
+      },
+      {
+        "type": "action",
+        "description": "Type \"{{LOGIN_PASSWORD}}\" into the password field"
+      },
+      {
+        "type": "action",
+        "description": "Click the \"Log in\" button"
+      },
+      {
+        "type": "action",
+        "description": "Navigate to /dashboard/users"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify either at least one user entry is visible or text \"No users\" is visible"
+      }
+    ]
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:3000",
+  "loginUser": "iatest@gmail.com",
+  "loginPassword": "iatest",
+  "executionArgs": {
+    "projectName": "expense-tracker-ocr",
+    "projectPath": "c:\\Users\\fazt\\Desktop\\expense-tracker-ocr",
+    "testIds": [],
+    "additionalInstruction": "",
+    "serverMode": "development",
+    "envs": {
+      "API_KEY": "sk-user-A3N-3CN9omfd31fmCZlvGYvGH0E0usfhrT03MxMvPHbfbSWqh28SqdvTMkrNvuuI4j5GFs8SLfF1GGjb7nZxqkFU51bSTcxzK5I1h21sSH142VCNrmnTo6R5ueckbABULyM"
+    }
+  },
+  "serverPort": 53196,
+  "proxy": "http://f3d8cb22-b3b7-47bb-bb64-1b51bf1a2620:5hneGovlgS9zmBgbThx2d0wegslkTbGa@tun.testsprite.com:8080"
+}

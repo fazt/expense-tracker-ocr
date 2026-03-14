@@ -1,0 +1,235 @@
+version: "2"
+type: frontend
+tech_stack:
+  - language: TypeScript 5
+  - framework: Next.js 15 (React 19)
+  - ui_library: Tailwind CSS v4, Recharts v3
+  - other: Prisma ORM v6, PostgreSQL, NextAuth v5, OpenAI API, Cloudinary, bcryptjs, date-fns
+
+routes:
+  - path: /
+    file: src/app/page.tsx
+    auth_required: false
+    description: Landing page with hero, features showcase, how it works and testimonials
+  - path: /login
+    file: src/app/(auth)/login/page.tsx
+    auth_required: false
+    description: User login page with email and password
+  - path: /register
+    file: src/app/(auth)/register/page.tsx
+    auth_required: false
+    description: User registration page with name, email, and password
+  - path: /dashboard
+    file: src/app/(dashboard)/dashboard/page.tsx
+    auth_required: true
+    description: Main dashboard with financial summary, charts and recent transactions
+  - path: /dashboard/expenses
+    file: src/app/(dashboard)/dashboard/expenses/page.tsx
+    auth_required: true
+    description: Expense list with create, edit, delete and AI auto-categorization
+  - path: /dashboard/scan
+    file: src/app/(dashboard)/dashboard/scan/page.tsx
+    auth_required: true
+    description: Receipt scanner using GPT-4o Vision OCR to extract expense data
+  - path: /dashboard/budgets
+    file: src/app/(dashboard)/dashboard/budgets/page.tsx
+    auth_required: true
+    description: Monthly budget management per category with alert thresholds
+  - path: /dashboard/categories
+    file: src/app/(dashboard)/dashboard/categories/page.tsx
+    auth_required: true
+    description: Manage expense categories with custom icons and colors
+  - path: /dashboard/export
+    file: src/app/(dashboard)/dashboard/export/page.tsx
+    auth_required: true
+    description: Export expenses as CSV filtered by month and year
+  - path: /dashboard/users
+    file: src/app/(dashboard)/dashboard/users/page.tsx
+    auth_required: true
+    description: Admin panel listing all users with their expense counts
+
+features:
+  - name: User Registration
+    description: Create a new account with name, email and password
+    files:
+      - src/app/(auth)/register/page.tsx
+      - src/app/api/auth/register/route.ts
+    entry_route: /register
+    user_interactions:
+      - Fill name input field
+      - Fill email input field
+      - Fill password input field (min 6 characters)
+      - Click Crear cuenta button to submit
+      - See error message if email already exists
+      - Redirect to dashboard on success
+    api_calls:
+      - method: POST
+        endpoint: /api/auth/register
+    auth_required: false
+
+  - name: User Login
+    description: Authenticate with email and password credentials
+    files:
+      - src/app/(auth)/login/page.tsx
+      - src/auth.ts
+      - src/lib/auth.ts
+    entry_route: /login
+    user_interactions:
+      - Fill email input field
+      - Fill password input field
+      - Click Iniciar sesión button to submit
+      - See error message on invalid credentials
+      - Redirect to dashboard on success
+    api_calls:
+      - method: POST
+        endpoint: /api/auth/[...nextauth]
+    auth_required: false
+
+  - name: Dashboard Analytics
+    description: View financial summary with charts, trends and statistics
+    files:
+      - src/app/(dashboard)/dashboard/page.tsx
+      - src/app/api/expenses/stats/route.ts
+    entry_route: /dashboard
+    user_interactions:
+      - View total expenses for current month
+      - Navigate between months using arrow buttons
+      - Switch between Diario, Semanal, Categorias and Transacciones tabs
+      - Hover over chart bars to see daily/weekly breakdown
+    api_calls:
+      - method: GET
+        endpoint: /api/expenses/stats
+    auth_required: true
+
+  - name: Expense Management
+    description: Create, edit and delete personal expenses with optional AI categorization
+    files:
+      - src/app/(dashboard)/dashboard/expenses/page.tsx
+      - src/app/api/expenses/route.ts
+      - src/app/api/expenses/[id]/route.ts
+    entry_route: /dashboard/expenses
+    user_interactions:
+      - Click Nuevo Gasto button to open create form
+      - Fill description, amount, date and category fields
+      - Click AI categorize button to auto-suggest a category
+      - Submit form to create expense
+      - Click edit icon on existing expense to modify it
+      - Click delete icon on existing expense to remove it
+      - Filter expenses by category using dropdown
+    api_calls:
+      - method: GET
+        endpoint: /api/expenses
+      - method: POST
+        endpoint: /api/expenses
+      - method: PUT
+        endpoint: /api/expenses/[id]
+      - method: DELETE
+        endpoint: /api/expenses/[id]
+      - method: POST
+        endpoint: /api/categorize
+    auth_required: true
+
+  - name: Receipt OCR Scanner
+    description: Upload a receipt image and extract expense data using GPT-4o Vision
+    files:
+      - src/app/(dashboard)/dashboard/scan/page.tsx
+      - src/app/api/ocr/route.ts
+    entry_route: /dashboard/scan
+    user_interactions:
+      - Drag and drop an image or click to upload
+      - Click Escanear Recibo button to process image
+      - View extracted amount, description, category and date
+      - Confirm or edit extracted data
+      - Save expense from scanned data
+    api_calls:
+      - method: POST
+        endpoint: /api/ocr
+      - method: POST
+        endpoint: /api/expenses
+    auth_required: true
+
+  - name: Budget Management
+    description: Set and track monthly budgets per expense category
+    files:
+      - src/app/(dashboard)/dashboard/budgets/page.tsx
+      - src/app/api/budgets/route.ts
+    entry_route: /dashboard/budgets
+    user_interactions:
+      - View list of categories with current budget amounts
+      - Click edit on a category budget to set a new amount
+      - See progress bar indicating budget usage percentage
+      - See alert indicator when spending exceeds 80% of budget
+    api_calls:
+      - method: GET
+        endpoint: /api/budgets
+      - method: POST
+        endpoint: /api/budgets
+    auth_required: true
+
+  - name: Category Management
+    description: Create, edit and delete expense categories with icons and colors
+    files:
+      - src/app/(dashboard)/dashboard/categories/page.tsx
+      - src/app/api/categories/route.ts
+      - src/app/api/categories/[id]/route.ts
+    entry_route: /dashboard/categories
+    user_interactions:
+      - Click Nueva Categoría button to open create form
+      - Fill category name, select icon and color
+      - Submit form to create category
+      - Click edit icon to update an existing category
+      - Click delete icon to remove a category
+    api_calls:
+      - method: GET
+        endpoint: /api/categories
+      - method: POST
+        endpoint: /api/categories
+      - method: PUT
+        endpoint: /api/categories/[id]
+      - method: DELETE
+        endpoint: /api/categories/[id]
+    auth_required: true
+
+  - name: CSV Export
+    description: Download expenses as a CSV file filtered by month and year
+    files:
+      - src/app/(dashboard)/dashboard/export/page.tsx
+      - src/app/api/expenses/export/route.ts
+    entry_route: /dashboard/export
+    user_interactions:
+      - Select month and year from dropdowns
+      - Click Exportar CSV button to download file
+    api_calls:
+      - method: GET
+        endpoint: /api/expenses/export
+    auth_required: true
+
+  - name: Users Admin Panel
+    description: Admin view listing all registered users and their expense counts
+    files:
+      - src/app/(dashboard)/dashboard/users/page.tsx
+      - src/app/api/users/route.ts
+    entry_route: /dashboard/users
+    user_interactions:
+      - View list of all users with name, email and expense count
+    api_calls:
+      - method: GET
+        endpoint: /api/users
+    auth_required: true
+
+known_limitations:
+  - issue: Search box in dashboard header is UI-only, not connected to any API
+    location: src/app/(dashboard)/layout.tsx
+    impact: Search does not filter or return results
+  - issue: Notification bell is cosmetic only, no backend implementation
+    location: src/app/(dashboard)/layout.tsx
+    impact: Clicking notifications does nothing
+  - issue: Categories API endpoints do not enforce auth on POST
+    location: src/app/api/categories/route.ts
+    impact: Anyone can create categories without being logged in
+  - issue: Users admin endpoint lists all users without admin role check
+    location: src/app/api/users/route.ts
+    impact: Any authenticated user can access the users list
+  - issue: Budget alerts only display on dashboard, no email notifications
+    location: src/app/(dashboard)/dashboard/page.tsx
+    impact: Users must manually check the dashboard to notice budget overruns
